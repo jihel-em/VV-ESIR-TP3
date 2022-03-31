@@ -39,4 +39,51 @@ void testDifferentResults() {
 }
 ```
 
+3.On peut utliser fall quand un test n'est pas encore fini ou implémenté.
+```Java
+@Test
+public void testIncomplet() {
+    fail("Not yet implemented");
+}
+```
+
+Il est également possible de l'utiliser pour remonter une exception qui n'était pas attendu.
+```Java
+@Test
+public void exceptionInnatendu() {
+    try {
+        safeMethod();
+        // more testing code
+    } catch (Exception e) {
+        fail("Unexpected exception was thrown");
+    }
+}
+```
+
+On peut l'utiliser pour montrer qu'une valeur ne remplit pas une condition.
+```Java
+@Test
+public void testCondition() {
+    int result = randomInteger();
+    if(result > Integer.MAX_VALUE) {
+        fail("Result cannot exceed integer max value");
+    }
+}
+```
+
+Enfin, fall permet d'observer si une méthode ne retourne pas une valeur au moment attendu.
+```Java
+@Test
+public void returnBefore() {
+    int value = randomInteger();
+    for (int i = 0; i < 5; i++) {
+        // returns when (value + i) is an even number
+        if ((i + value) % 2 == 0) {
+            return;
+        }
+    }
+    fail("Should have returned before");
+}
+```
+
 4.
