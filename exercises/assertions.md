@@ -11,3 +11,4 @@ Answer the following questions:
 4. In JUnit 4, an exception was expected using the `@Test` annotation, while in JUnit 5 there is a special assertion method `assertThrows`. In your opinion, what are the advantages of this new way of checking expected exceptions?
 
 ## Answer
+1. Les calculs sur les floats ne sont pas exacts. En effet, ici, 3*.4 donne 1.2000000000000002, ce qui est différent de 1,2. Il faut donc utiliser `assertEquals(expected, actual, delta)`, où `delta` est un flottant ; on vérifie alors que `expected` est égal à `actual` à plus ou moins `delta` près.
