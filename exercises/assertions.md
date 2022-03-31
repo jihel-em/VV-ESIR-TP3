@@ -12,3 +12,27 @@ Answer the following questions:
 
 ## Answer
 1. Les calculs sur les floats ne sont pas exacts. En effet, ici, 3*.4 donne 1.2000000000000002, ce qui est différent de 1,2. Il faut donc utiliser `assertEquals(expected, actual, delta)`, où `delta` est un flottant ; on vérifie alors que `expected` est égal à `actual` à plus ou moins `delta` près.
+
+2.`assertEquals` vérifie que deux objets ont la même valeur, alors que `assertSame` vérifie que deux objets sont les mêmes (même addresse).
+```@Test
+	void testSameResults() {
+		ArrayList<Integer> a1 = new ArrayList<Integer>();
+		ArrayList<Integer> a2 = a1;
+		for(int i=0; i<10; i++) {
+			a1.add(i);
+		}
+		assertEquals(a1,a2);
+		assertSame(a1,a2);
+	}
+	
+	@Test
+	void testDifferentResults() {
+		ArrayList<Integer> a1 = new ArrayList<Integer>();
+		ArrayList<Integer> a2 = new ArrayList<Integer>();
+		for(int i=0; i<10; i++) {
+			a1.add(i);
+			a2.add(i);
+		}
+		assertEquals(a1,a2);
+		assertSame(a1,a2);
+	}```
