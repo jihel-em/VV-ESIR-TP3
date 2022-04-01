@@ -138,7 +138,7 @@ On considère qu'une condition est complètement testée lorsque l'on a testé t
 eg : if(A && B || C) -> dans le cas où A,B et C sont trois prédicats indépendants, on teste tous les cas possibles (A vrai, B vrai, C vrai ; A faux, B vrai, C vrai...).
 Dans notre cas, deux conditions ne peuvent être vraies simultanéments (un caractère ne peut être `(` et `[` à la fois). Il suffit de tester les cas où l'un d'entre eux est vrai, et le cas où tous sont faux.
 
-4. Alors qu'il nous semblait avoir couvert tous le programme, on a pu constater avec PIT qu'il y avait des lignes que l'on ne testait jamais directement : ``if(previousSymbol!='(') return false;``, ``if(previousSymbol!='[')	return false;`` et le ``return false;`` final. (À ce titre, notre couverture à l'exercice précédent était alors de 76,4%, et non pas 94%.)
+4. Alors qu'il nous semblait avoir couvert tous le programme, on a pu constater avec PIT qu'il y avait des lignes que l'on ne testait jamais directement : ``if(previousSymbol!='(') return false;``, ``if(previousSymbol!='[')	return false;`` et le ``return false;`` final. (À ce titre, notre couverture à la question 2 était alors de 76,4%, et non pas 94%.)
 On va donc ajouter des assert dans ``testIsBalancedIncorrectWithCharacters()`` pour les deux premiers, et ajouter un nouveau test pour le cas où il n'y a pas assez de parenthèses fermantes :
 ```Java
 @Test
