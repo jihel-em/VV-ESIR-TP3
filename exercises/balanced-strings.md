@@ -25,4 +25,116 @@ Write below the actions you took on each step and the results you obtained.
 Use the project in [tp3-balanced-strings](../code/tp3-balanced-strings) to complete this exercise.
 
 ## Answer
+```Java
+public static boolean isBalanced(String str) {
+    Stack<Character> s = new Stack<Character>();
+    for(int i=0; i<str.length(); i++) {
+        char currentChar = str.charAt(i);
 
+        if(currentChar=='(' || currentChar=='[' || currentChar=='{') {
+            s.add(currentChar);
+        }
+        else {
+
+            if(currentChar==')') {
+                if(s.isEmpty()) return false;
+                char previousSymbol = s.pop();
+                if(previousSymbol!='(') {
+                    return false;
+                }
+            }
+
+            if(currentChar==']') {
+                if(s.isEmpty()) return false;
+                char previousSymbol = s.pop();
+                if(previousSymbol!='[') {
+                    return false;
+                }
+            }
+
+            if(currentChar=='}') {
+                if(s.isEmpty()) return false;
+                char previousSymbol = s.pop();
+                if(previousSymbol!='{') {
+                    return false;
+                }
+            }
+        }
+    }
+    if(s.size()==0) return true;
+    return false;
+}
+```
+
+1. Dans les tests suivants, on a testé les chaînes alphanumériques :
+- sans symboles parenthèse, bracket ou accolade ;
+- qui commencent par un symbole fermant ;
+- qui ne contiennent qu'un des trois types de symbole, dans le cas simple où il n'y a qu'une paire ;
+- qui ne contiennent qu'un des trois types de symbole, où il est plusieurs fois et entremêlé correctement ;
+- qui contiennent un entremêlement correct ou non des trois symboles, avec ou sans autres caractères.
+
+```Java
+@Test
+void testIsBalancedNoSymbol() {
+    String s1 = "";
+    String s2 = "lucas";
+    assertTrue(Main.isBalanced(s1));
+    assertTrue(Main.isBalanced(s2));
+}
+
+@Test
+void testIsBalancedStartsWithClosingSymbol() {
+    String s1 = "][";
+    String s2 = ")(";
+    String s3 = "}{";
+    assertFalse(Main.isBalanced(s1));
+    assertFalse(Main.isBalanced(s2));
+    assertFalse(Main.isBalanced(s3));
+}
+
+@Test
+void testIsBalancedOnlyOneSymbolSimple() {
+    String s1 = "[]";
+    String s2 = "()";
+    String s3 = "{}";
+    assertTrue(Main.isBalanced(s1));
+    assertTrue(Main.isBalanced(s2));
+    assertTrue(Main.isBalanced(s3));
+}
+
+@Test
+void testIsBalancedOnlyOneSymbol() {
+    String s1 = "[[][][[]]]";
+    String s2 = "()(()(()))";
+    String s3 = "{{}{}{{}}}";
+    assertTrue(Main.isBalanced(s1));
+    assertTrue(Main.isBalanced(s2));
+    assertTrue(Main.isBalanced(s3));
+}
+
+@Test
+void testIsBalancedCorrectMultipleSymbols() {
+    String s = "([]{{}()})";
+    assertTrue(Main.isBalanced(s));
+}
+
+@Test
+void testIsBalancedIncorrectMultipleSymbols() {
+    String s = "({[}])";
+    assertFalse(Main.isBalanced(s));
+}
+
+@Test
+void testIsBalancedCorrectWithCharacters() {
+    String s = "(zdqzf[gqzg]jfkjS{KIUBf{qkzyf}Huqyfy(mpfuq iqohfb) oiseufb! }qf?);;";
+    assertTrue(Main.isBalanced(s));
+}
+
+@Test
+void testIsBalancedIncorrectWithCharacters() {
+    String s = "zhjqgb (fqekje %%{filn!![oigiubn%}klfh!]qzflmn;)zqlkufb;";
+    assertFalse(Main.isBalanced(s));
+}
+```
+
+2.
