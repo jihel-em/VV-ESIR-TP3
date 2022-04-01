@@ -29,40 +29,34 @@ Use the project in [tp3-balanced-strings](../code/tp3-balanced-strings) to compl
 public static boolean isBalanced(String str) {
     Stack<Character> s = new Stack<Character>();
     for(int i=0; i<str.length(); i++) {
-        char currentChar = str.charAt(i);
+        char currentChar = str.charAt(i);//
 
-        if(currentChar=='(' || currentChar=='[' || currentChar=='{') {
-            s.add(currentChar);
+        if(currentChar=='(' || currentChar=='[' || currentChar=='{') {//
+            s.add(currentChar);//
         }
         else {
 
-            if(currentChar==')') {
-                if(s.isEmpty()) return false;
-                char previousSymbol = s.pop();
-                if(previousSymbol!='(') {
-                    return false;
-                }
+            if(currentChar==')') {//
+                if(s.isEmpty()) return false;//
+                char previousSymbol = s.pop();//
+                if(previousSymbol!='(') return false;//
             }
 
-            if(currentChar==']') {
-                if(s.isEmpty()) return false;
-                char previousSymbol = s.pop();
-                if(previousSymbol!='[') {
-                    return false;
-                }
+            if(currentChar==']') {//
+                if(s.isEmpty()) return false;//
+                char previousSymbol = s.pop();//
+                if(previousSymbol!='[')	return false;//
             }
 
-            if(currentChar=='}') {
-                if(s.isEmpty()) return false;
-                char previousSymbol = s.pop();
-                if(previousSymbol!='{') {
-                    return false;
-                }
+            if(currentChar=='}') {//
+                if(s.isEmpty()) return false;//
+                char previousSymbol = s.pop();//
+                if(previousSymbol!='{')	return false;//
             }
         }
     }
-    if(s.size()==0) return true;
-    return false;
+    if(s.size()==0) return true;//
+    return false;//
 }
 ```
 
@@ -137,4 +131,11 @@ void testIsBalancedIncorrectWithCharacters() {
 }
 ```
 
-2.
+2. Dans notre méthode, il y a 17 lignes qui doivent être testées (marquées par '//' en fin de ligne). Elles sont toutes testées, sauf la ligne ``char currentChar = str.charAt(i);``. On a donc une couverture de 94,4%.
+
+3. La seule ligne qui utilise plusieurs prédicats en même temps est : ``if(currentChar=='(' || currentChar=='[' || currentChar=='{')``. Les différents prédicats sont tous testés séparément dans tous les tests proposés.
+On considère qu'une condition est complètement testée lorsque l'on a testé toutes les combinaisons possibles de valeurs obtenues par les prédicats.
+eg : if(A && B || C) -> dans le cas où A,B et C sont trois prédicats indépendants, on teste tous les cas possibles (A vrai, B vrai, C vrai ; A faux, B vrai, C vrai...).
+Dans notre cas, deux conditions ne peuvent être vraies simultanéments (un caractère ne peut être `(` et `[` à la fois). Il suffit de tester les cas où l'un d'entre eux est vrai, et le cas où tous sont faux.
+
+4.
