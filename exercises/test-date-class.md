@@ -320,4 +320,29 @@ date6 = date6.nextDate();
 assertTrue(date5.day == 30 && date5.month == 10 && date5.year == 2024);
 assertTrue(date6.day == 14 && date6.month == 2 && date6.year == 2000);
 ```
-4.
+4. Avec l'analyse PIT, nous observons que nous avons une couverture de ligne de 100% et une couverture de mutation de 92% avec 5 mutants survivants.
+Deux mutants survivent suitent à un changement de conditions sur dans la ligne suivante :
+```Java
+if(month == 2  && isLeapYear(year) && day > 0 && day < 30) {
+```
+Nous avons ajusté les tests suivants pour les éliminer : 
+```Java
+assertFalse(Date.isValidDate(0, 2, 2000));
+assertFalse(Date.isValidDate(30, 2, 2024));
+```
+De la même façon, pour supprimer les mutants survivant dans la ligne `if(month > 0 && month < 13 && day > 0 && day <= nbJoursParMois[month-1]) {` nous avons ajouter les tests suivants :
+```Java
+assertFalse(Date.isValidDate(14, 13, 204));
+assertFalse(Date.isValidDate(27, 0, 1028));
+```
+Enfin la dernière mutation survivante était sur la ligne suivante après avoir remplacé une soustraction par une addition : 
+```Java
+return new Date(nbJoursParMois[month-2], month-1, this.year);
+```
+Nous avons donc ajouté le test suivant : 
+```Java
+Date date5 = new Date(1, 12, 1025);
+date5 = date5.previousDate();
+assertTrue(date5.day == 30 && date5.month == 11 && date5.year == 1025);
+```
+Nous avons maintenant une couverture des mutants de 100%.
