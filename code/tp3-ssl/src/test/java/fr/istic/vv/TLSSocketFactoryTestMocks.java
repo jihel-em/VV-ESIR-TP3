@@ -22,6 +22,7 @@ public class TLSSocketFactoryTestMocks {
         when(mockedSocket.getSupportedProtocols()).thenReturn(null);
         when(mockedSocket.getEnabledProtocols()).thenReturn(null);
         f.prepareSocket(mockedSocket);
+        verify(mockedSocket,times(0)).setEnabledProtocols(any()); //C'est cette ligne qui permet de détecter un problème si prepareSocket() ne fonctionne pas.
     }
 
     @Test
@@ -31,7 +32,7 @@ public class TLSSocketFactoryTestMocks {
         when(mockedSocket.getSupportedProtocols()).thenReturn(shuffle(new String[]{"SSLv2Hello", "SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"}));
         when(mockedSocket.getEnabledProtocols()).thenReturn(shuffle(new String[]{"SSLv3", "TLSv1"}));
         f.prepareSocket(mockedSocket);
-        verify(mockedSocket).setEnabledProtocols(any());;
+        verify(mockedSocket).setEnabledProtocols(any()); //C'est cette ligne qui permet de détecter un problème si prepareSocket() ne fonctionne pas.
     }
 
 
